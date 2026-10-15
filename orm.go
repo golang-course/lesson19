@@ -41,8 +41,40 @@ func main() {
 	// 	return
 	// }
 
+	var nothingphones []Phone
+	res := db.Where("Vendor = ?", "nothingphone").Find(&nothingphones)
+	if res.Error != nil {
+		log.Println(err)
+		return
+	}
+	for i, _ := range nothingphones {
+		nothingphones[i].Price += 1000
+	}
+	res = db.Save(&nothingphones)
+	if res.Error != nil {
+		log.Println(err)
+		return
+	}
+
+	var blackberry Phone
+	res = db.Where("Vendor = ?", "Blackberry").Find(&blackberry)
+	if res.Error != nil {
+		log.Println(err)
+		return
+	}
+	res = db.Delete(&blackberry)
+	if res.Error != nil {
+		log.Println(err)
+		return
+	} else if res.RowsAffected == 0 {
+		log.Println("NO AFFECTED")
+		return
+	} else {
+		log.Println("DELETED SUCCESSFULLY")
+	}
+
 	var phones []Phone
-	res := db.Where("Vendor = ?", "nothingphone").Find(&phones)
+	res = db.Find(&phones)
 	if res.Error != nil {
 		log.Println(err)
 		return
