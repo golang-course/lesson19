@@ -9,14 +9,14 @@ import (
 	// _ "modernc.org/sqlite"
 )
 
-type Phone struct {
+type Phone1 struct {
 	id     int
 	vendor string
 	model  string
 	price  sql.NullInt64
 }
 
-func main() {
+func main1() {
 	const pgConfig = "user=postgres password=postgres dbname=mydb sslmode=disable port=5432"
 	db, err := sql.Open("postgres", pgConfig)
 	if err != nil {
